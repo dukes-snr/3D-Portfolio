@@ -60,6 +60,33 @@
             box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
         }
 
+        .device-message {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 300px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Only show message on mobile */
+        @media (min-width: 769px) {
+            .device-message {
+                display: none;
+            }
+        }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -101,6 +128,10 @@
         </div>
         <div class="loader-number">00</div>
         <div class="loader-progress"></div>
+        <div class="device-message">
+            For the best experience of my 3D portfolio,
+            consider viewing on a larger screen
+        </div>
     </div>
 
     <script>
