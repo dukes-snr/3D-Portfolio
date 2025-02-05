@@ -277,6 +277,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Disable heavy animations
         document.body.classList.add('reduce-motion');
         
+        // Remove Spline viewers on mobile
+        document.querySelectorAll('spline-viewer').forEach(viewer => {
+            viewer.remove();
+        });
+
         // Remove intersection observers on mobile
         if (window.animationObserver) {
             animationObserver.disconnect();
@@ -284,13 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.sectionObserver) {
             sectionObserver.disconnect();
         }
-
-        // Optimize Spline viewer on mobile
-        const splineViewers = document.querySelectorAll('spline-viewer');
-        splineViewers.forEach(viewer => {
-            viewer.setAttribute('pixel-ratio', '0.75');
-            viewer.setAttribute('buffer-size', '1024');
-        });
     }
 
     // Use existing ticking variable for scroll handling

@@ -406,12 +406,22 @@ spline-viewer {
 
 @media (max-width: 768px) {
     .intro-section {
-        padding: 6rem 2rem 4rem;
+        padding: 6rem 1.5rem 4rem;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+                    url('../assets/images/ui/backgrounds/Hero-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        position: relative;
     }
 
     .intro-content {
         width: 100%;
         margin-left: 0;
+        padding: 2rem;
+        background: rgba(10, 10, 10, 0.5);
+        backdrop-filter: blur(5px);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .intro-content h1 {
@@ -2197,36 +2207,34 @@ section {
 
 /* Glassmorphism styles for mobile */
 @media (max-width: 768px) {
+    .intro-section {
+        padding: 6rem 1.5rem 4rem;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+                    url('../assets/images/ui/backgrounds/Hero-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .spline-background {
+        display: none;
+    }
+
     .intro-content {
         width: 100%;
         margin: 0;
         padding: 2rem;
-        background: rgba(10, 10, 10, 0.7);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(10, 10, 10, 0.5);
+        backdrop-filter: blur(5px);
         border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .intro-section {
-        padding: 6rem 1.5rem 4rem;
-    }
-
-    .spline-background {
-        opacity: 0.8;
-    }
-
-    /* Enhance text legibility */
-    .intro-content h1 {
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .intro-content p {
-        color: rgba(255, 255, 255, 0.9);
-    }
-
+    .intro-content h1,
+    .intro-content p,
     .hero-tag {
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        color: var(--text);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 }
 
@@ -2249,6 +2257,37 @@ html {
 
 /* Performance optimizations for mobile */
 @media (max-width: 768px) {
+    /* Hide Spline viewers on mobile */
+    .spline-background spline-viewer {
+        display: none;
+    }
+
+    /* Show static background image instead */
+    .spline-background {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+                    url('../assets/images/Hero-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    /* Hide process section Spline */
+    .workflow-background {
+        display: none;
+    }
+
+    /* Adjust process section background */
+    .workflow-section {
+        background: var(--dark-gray);
+        position: relative;
+    }
+
     /* Disable animations that cause layout shifts */
     .fade-up,
     .fade-in,
@@ -2258,36 +2297,5 @@ html {
         transform: none !important;
         transition: none !important;
         animation: none !important;
-    }
-    
-    /* Reduce GPU usage */
-    .spline-background {
-        opacity: 0.3;
-    }
-    
-    /* Simplify shadows and effects */
-    .btn,
-    .contact-btn,
-    .portfolio-item,
-    .process-step {
-        box-shadow: none;
-    }
-    
-    /* Reduce backdrop-filter usage */
-    header,
-    footer,
-    .intro-content {
-        backdrop-filter: none;
-        background: rgba(10, 10, 10, 0.95);
-    }
-    
-    /* Disable parallax effects */
-    .hero-visual {
-        transform: none !important;
-    }
-    
-    /* Reduce transition complexity */
-    * {
-        transition-duration: 0.2s !important;
     }
 } 

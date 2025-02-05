@@ -37,12 +37,6 @@
     <link rel="stylesheet" href="css/styles.css" media="print" onload="this.media='all'">
 </head>
 <body>
-    <!-- Reduce initial paint -->
-    <style>
-        body { opacity: 0; }
-        .content { opacity: 1; transition: opacity 0.3s; }
-    </style>
-    <!-- Main Content -->
     <div class="content">
         <header>
             <nav>
@@ -86,7 +80,21 @@
         <main>
             <section id="intro" class="intro-section">
                 <div class="spline-background">
-                    <spline-viewer url="https://prod.spline.design/gHt2VUNHCiZZmEGP/scene.splinecode" loading="lazy" buffer-size="2048" pixel-ratio="1" exposure="0.8"></spline-viewer>
+                    <!-- Mobile background image is handled by CSS -->
+                    <!-- Spline viewer will be loaded only on desktop -->
+                    <script>
+                        if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                            document.write(`
+                                <spline-viewer 
+                                    url="https://prod.spline.design/gHt2VUNHCiZZmEGP/scene.splinecode"
+                                    loading="lazy"
+                                    buffer-size="2048"
+                                    pixel-ratio="1"
+                                    exposure="0.8">
+                                </spline-viewer>
+                            `);
+                        }
+                    </script>
                 </div>
                 <div class="intro-content">
                     <div class="hero-tag">3D Artist & Visual Storyteller</div>
@@ -290,7 +298,16 @@
 
             <section id="workflow" class="workflow-section">
                 <div class="workflow-background">
-                    <spline-viewer url="https://prod.spline.design/PhNGafHk6AyF7pEV/scene.splinecode" loading="eager"></spline-viewer>
+                    <script>
+                        if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                            document.write(`
+                                <spline-viewer 
+                                    url="https://prod.spline.design/PhNGafHk6AyF7pEV/scene.splinecode"
+                                    loading="lazy">
+                                </spline-viewer>
+                            `);
+                        }
+                    </script>
                 </div>
                 <div class="workflow-content">
                     <h2>My Process</h2>
