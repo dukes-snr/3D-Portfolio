@@ -264,24 +264,51 @@ document.addEventListener('DOMContentLoaded', () => {
         // Observe the section
         sectionObserver.observe(section);
     });
+
+    // Cache DOM elements
+    const sections = document.querySelectorAll('section');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    const processSteps = document.querySelectorAll('.process-step');
 });
 
 // Performance optimization
 const optimizePerformance = () => {
     // Debounce scroll events
     let scrollTimeout;
-    window.addEventListener('scroll', () => {
+    const scrollHandler = () => {
         if (scrollTimeout) {
             window.cancelAnimationFrame(scrollTimeout);
         }
         scrollTimeout = window.requestAnimationFrame(() => {
-            // Handle scroll-based animations
+            // Optimize scroll animations
+            sections.forEach(section => {
+                if (isInViewport(section) && !section.classList.contains('section-visible')) {
+                    section.classList.add('section-visible');
+                }
+            });
         });
-    });
+    };
 
-    // Cache DOM elements
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    const processSteps = document.querySelectorAll('.process-step');
+    // Use passive scroll listener
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    
+    // Optimize image loading
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    if ('loading' in HTMLImageElement.prototype) {
+        images.forEach(img => {
+            img.loading = 'lazy';
+            img.decoding = 'async';
+        });
+    }
+    
+    // Helper function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom >= 0
+        );
+    }
 };
 
 // Initialize optimizations
