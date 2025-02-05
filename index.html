@@ -9,7 +9,8 @@
     <link rel="icon" type="image/png" href="assets/images/ui/icons/favicon.png">
     <link rel="apple-touch-icon" href="assets/images/ui/icons/apple-touch-icon.png">
     <link rel="stylesheet" href="css/styles.css">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.59/build/spline-viewer.js" async defer></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.59/build/spline-viewer.js" async defer
+            onload="this.setAttribute('pixel-ratio', '1')"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <meta name="description" content="Dukes Davis - Professional 3D Artist specializing in environment design, character modeling, and visual storytelling. View portfolio of cyberpunk and sci-fi 3D art.">
     <meta name="keywords" content="3D art, environment design, character modeling, cyberpunk, sci-fi, Blender, Unreal Engine, Maya">
@@ -30,8 +31,17 @@
     <link rel="preload" href="css/styles.css" as="style">
     <link rel="preload" href="js/scripts.js" as="script">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" as="style">
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&display=swap" as="style">
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="css/styles.css" media="print" onload="this.media='all'">
 </head>
 <body>
+    <!-- Reduce initial paint -->
+    <style>
+        body { opacity: 0; }
+        .content { opacity: 1; transition: opacity 0.3s; }
+    </style>
     <!-- Main Content -->
     <div class="content">
         <header>

@@ -269,6 +269,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section');
     const portfolioItems = document.querySelectorAll('.portfolio-item');
     const processSteps = document.querySelectorAll('.process-step');
+
+    // Check if device is mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        // Disable heavy animations
+        document.body.classList.add('reduce-motion');
+        
+        // Remove intersection observers on mobile
+        if (window.animationObserver) {
+            animationObserver.disconnect();
+        }
+        if (window.sectionObserver) {
+            sectionObserver.disconnect();
+        }
+
+        // Optimize Spline viewer on mobile
+        const splineViewers = document.querySelectorAll('spline-viewer');
+        splineViewers.forEach(viewer => {
+            viewer.setAttribute('pixel-ratio', '0.75');
+            viewer.setAttribute('buffer-size', '1024');
+        });
+    }
+
+    // Use existing ticking variable for scroll handling
+    window.addEventListener('scroll', () => {
+        if (!ticking && !isMobile) {
+            window.requestAnimationFrame(() => {
+                // Handle scroll animations only on desktop
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 });
 
 // Performance optimization
@@ -309,6 +343,32 @@ const optimizePerformance = () => {
             rect.bottom >= 0
         );
     }
+
+    // Debounce resize events
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        if (resizeTimeout) {
+            window.cancelAnimationFrame(resizeTimeout);
+        }
+        resizeTimeout = window.requestAnimationFrame(() => {
+            // Handle resize only when needed
+        });
+    }, { passive: true });
+
+    // Reduce DOM queries
+    const cachedElements = {
+        sections: document.querySelectorAll('section'),
+        images: document.querySelectorAll('img[loading="lazy"]'),
+        splineViewers: document.querySelectorAll('spline-viewer')
+    };
+
+    // Optimize image loading
+    cachedElements.images.forEach(img => {
+        if ('loading' in HTMLImageElement.prototype) {
+            img.loading = 'lazy';
+            img.decoding = 'async';
+        }
+    });
 };
 
 // Initialize optimizations

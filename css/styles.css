@@ -2247,22 +2247,47 @@ html {
     overflow-y: scroll;
 }
 
-/* Performance optimizations */
+/* Performance optimizations for mobile */
 @media (max-width: 768px) {
-    /* Reduce animation complexity */
+    /* Disable animations that cause layout shifts */
     .fade-up,
+    .fade-in,
+    .slide-in,
     .stagger-children > * {
-        transition: opacity 0.3s ease;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
     }
     
-    /* Optimize backdrop filters */
-    .glass-effect {
-        backdrop-filter: blur(5px);
+    /* Reduce GPU usage */
+    .spline-background {
+        opacity: 0.3;
     }
     
-    /* Disable hover animations on mobile */
-    .portfolio-item:hover,
-    .process-step:hover {
-        transform: none;
+    /* Simplify shadows and effects */
+    .btn,
+    .contact-btn,
+    .portfolio-item,
+    .process-step {
+        box-shadow: none;
+    }
+    
+    /* Reduce backdrop-filter usage */
+    header,
+    footer,
+    .intro-content {
+        backdrop-filter: none;
+        background: rgba(10, 10, 10, 0.95);
+    }
+    
+    /* Disable parallax effects */
+    .hero-visual {
+        transform: none !important;
+    }
+    
+    /* Reduce transition complexity */
+    * {
+        transition-duration: 0.2s !important;
     }
 } 
